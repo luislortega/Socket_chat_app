@@ -7,48 +7,169 @@
   <title>Chat App</title>
   <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
   <script defer src="script.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <style>
-    body {
-      padding: 0;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-    }
+  @import url("http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css");
 
-    #message-container {
-      width: 80%;
-      max-width: 1200px;
-    }
+.detailBox {
+    width:320px;
+    border:1px solid #bbb;
+    margin:50px;
+    position: absolute;
+    z-index: 9;
+}
+.system{
+  color:#ffba17;
+}
 
-    #message-container div {
-      background-color: #CCC;
-      padding: 5px;
-    }
+.mini {
+ float:right;
+ font-size:21px;
+ font-weight:700;
+ line-height:1;
+ color:#000;
+ text-shadow:0 1px 0 #fff;
+ opacity:1.7;
+ filter:alpha(opacity=20)
+}
+.titleBox {
+    background-color:black;
+    padding:10px;
+    cursor: move;
+    z-index: 10;
 
-    #message-container div:nth-child(2n) {
-      background-color: #FFF;
-    }
 
-    #send-container {
-      position: fixed;
-      padding-bottom: 30px;
-      bottom: 0;
-      background-color: white;
-      max-width: 1200px;
-      width: 80%;
-      display: flex;
-    }
+}
+.titleBox label{
+  color: #FFFFFF;
+  margin:0;
+  display:inline-block;
 
-    #message-input {
-      flex-grow: 1;
-    }
+}
+
+.commentBox {
+    padding:10px;
+    border-top:1px dotted #bbb;
+     background: black;
+}
+.commentBox .form-group:first-child, .actionBox .form-group:first-child {
+    width:100%;
+    background: black;
+}
+.commentBox .form-group:nth-child(2), .actionBox .form-group:nth-child(2) {
+    width:18%;
+}
+.actionBox .form-group * {
+    width:100%;
+    color: white;
+     background: black;
+}
+.taskDescription {
+    margin-top:10px 0;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.commentList {
+    padding:0;
+    list-style:none;
+    max-height:200px;
+    overflow:auto;
+
+}
+.commentList li {
+    margin:0;
+    margin-top:10px;
+}
+.commentList li > div {
+    display:table-cell;
+}
+.commenterImage {
+    width:30px;
+    margin-right:5px;
+    height:100%;
+    float:left;
+}
+.offline{
+  color:red;
+}
+.commenterImage img {
+    width:100%;
+    border-radius:50%;
+}
+.commentText p {
+    margin:0;
+
+}
+.sub-text {
+    color:#aaa;
+    font-family:verdana;
+    font-size:11px;
+}
+.actionBox {
+    border-top:1px dotted #bbb;
+    padding:10px;
+     background: black;
+}
   </style>
 </head>
 <body>
-  <div id="message-container"></div>
-  <form id="send-container">
-    <input type="text" id="message-input">
-    <button type="submit" id="send-button">Send</button>
-  </form>
+
+  <div id="chatbox" class="detailBox">
+    <div id="titleBox" class="titleBox">
+      <label>Chat</label>
+        <div id="mini" onclick="" class="mini">-</div>
+    </div>
+  
+    <div class="actionBox">
+        <ul id="chat" class="commentList">
+            
+            <li>
+               <div id="offline" class="offline ">CHAT OFFLINE.</div>
+                <div id="message-container" class="commentText">
+                    
+
+                </div>
+            </li>
+        </ul>
+        <form autocomplete="off" id="send-container" class="form-inline" role="form">
+            <div class="form-group">
+                <input autocomplete="false" class="form-control" type="text" id="message-input" placeholder="Chat Here" />
+            </div>
+            
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+ $("#message-input").attr("autocomplete", "randomString"); 
+   $('#mini').click(function() {
+      $('.detailBox').toggle("slide");
+    });
+$( function() {
+    $( "#chatbox" ).draggable();
+  } );
+</script>
+
+
+
+  
 </body>
 </html>
