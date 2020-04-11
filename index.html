@@ -12,9 +12,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <style>
   @import url("http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css");
- body {
-  //background-image: url('https://i.imgur.com/IAIvv0K.jpg');
-}
+
 .detailBox {
     width:320px;
     border:1px solid #bbb;
@@ -144,11 +142,12 @@
 </head>
 <body>
 <div id="detailBoxSmall" class="detailBoxSmall" style="left: -44px; top: -48px;">
-    <div id="titleBox" class="titleBox">
+    <div id="titleBox2" class="titleBox">
       <label><img src="https://i.imgur.com/KOhzEeh.png"></label>
         
     </div>
 </div>
+<div id="draggable_test">
   <div id="chatbox" class="detailBox">
     <div id="titleBox" class="titleBox">
       <label><img src="https://i.imgur.com/KOhzEeh.png"> Chat</label>
@@ -174,8 +173,11 @@
         </form>
     </div>
 </div>
+</div>
+  
 <script type="text/javascript">
- $("#message-input").attr("autocomplete", "randomString"); 
+
+$("#message-input").attr("autocomplete", "randomString"); 
    $('#detailBoxSmall').click(function() {
       $('.detailBox').toggle("slide");
       $('.detailBoxSmall').toggle("slide");
@@ -186,11 +188,31 @@
     });
 $( function() {
   $('.detailBoxSmall').toggle("slide");
-    $( "#chatbox" ).draggable();
-  $( "#actionbox" ).resizable();
-    $( "#detailBoxSmall" ).draggable().resizable();
-  
   } );
+
+window.onload = addListeners();
+
+function addListeners(){
+    document.getElementById('titleBox').addEventListener('mousedown', mouseDown, false);
+    window.addEventListener('mouseup', mouseUp, false);
+
+}
+
+function mouseUp()
+{
+    window.removeEventListener('mousemove', divMove, true);
+}
+
+function mouseDown(e){
+  window.addEventListener('mousemove', divMove, true);
+}
+
+function divMove(e){
+    var div = document.getElementById('draggable_test');
+  div.style.position = 'absolute';
+  div.style.top = e.clientY-50 + 'px';
+  div.style.left = e.clientX-200 + 'px';
+}
 </script>
 
 
