@@ -9,9 +9,27 @@ io.on('connection', socket => {
     console.log("Users Online: "+Object.keys(users).length);
     socket.broadcast.emit('user-connected', name)
   })
+  //whisper
+  socket.on("whisper", function(data) {
+  
+    var to = Object.keys(users).find(key => users[key] == data.toid);
+    io.to(`${to}`).emit('chat-whisper',{
+                    message:data.msg,
+                    name:users[socket.id]
+                });
+        
+  
+}); 
 
   socket.on('send-chat-message', message => {
-    socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] })
+    if(users[socket.id] == undefined){
+      //socket.broadcast.emit('timeout', { name:null })
+      socket.emit('eventToClient',{ data: null });
+      delete users[socket.id]
+    }else{
+      socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] })
+    }
+    
   })
 socket.on("manual-disconnection", function(data) {
   const stringText = d.toLocaleString()+": User Manually Disconnected. trying to do SPAM:. NAME: "+users[data]+"\n";

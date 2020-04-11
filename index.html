@@ -5,15 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Chat App</title>
-  <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script defer src="http://ts.deathspaces.com:3000/socket.io/socket.io.js"></script>
   <script defer src="script.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <style>
   @import url("http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css");
-
+ body {
+  //background-image: url('https://i.imgur.com/IAIvv0K.jpg');
+}
 .detailBox {
     width:320px;
+    border:1px solid #bbb;
+    margin:50px;
+    position: absolute;
+    z-index: 9;
+}
+.detailBoxSmall {
+    width:46px;
     border:1px solid #bbb;
     margin:50px;
     position: absolute;
@@ -41,6 +51,7 @@
 
 
 }
+
 .titleBox label{
   color: #FFFFFF;
   margin:0;
@@ -132,14 +143,19 @@
   </style>
 </head>
 <body>
-
+<div id="detailBoxSmall" class="detailBoxSmall" style="left: -44px; top: -48px;">
+    <div id="titleBox" class="titleBox">
+      <label><img src="https://i.imgur.com/KOhzEeh.png"></label>
+        
+    </div>
+</div>
   <div id="chatbox" class="detailBox">
     <div id="titleBox" class="titleBox">
-      <label>Chat</label>
+      <label><img src="https://i.imgur.com/KOhzEeh.png"> Chat</label>
         <div id="mini" onclick="" class="mini">-</div>
     </div>
   
-    <div class="actionBox">
+    <div id ="actionbox" class="actionBox">
         <ul id="chat" class="commentList">
             
             <li>
@@ -160,11 +176,20 @@
 </div>
 <script type="text/javascript">
  $("#message-input").attr("autocomplete", "randomString"); 
+   $('#detailBoxSmall').click(function() {
+      $('.detailBox').toggle("slide");
+      $('.detailBoxSmall').toggle("slide");
+    });
    $('#mini').click(function() {
       $('.detailBox').toggle("slide");
+      $('.detailBoxSmall').toggle("slide");
     });
 $( function() {
+  $('.detailBoxSmall').toggle("slide");
     $( "#chatbox" ).draggable();
+  $( "#actionbox" ).resizable();
+    $( "#detailBoxSmall" ).draggable().resizable();
+  
   } );
 </script>
 
