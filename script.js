@@ -1,4 +1,4 @@
-const socket = io('http://ts.deathspaces.com:3000')
+const socket = io('http://oscar.charmingkingdom.com:3000')
 
 
 const messageContainer = document.getElementById('message-container')
@@ -61,7 +61,7 @@ function system(value) {
   }
   return true;
 }
-const name = prompt('What is your name?');
+
 appendMessage('System: Welcome to DeathSpaces Chat')
 appendMessage('System: use /duel name to invite someone to duel')
 socket.emit('new-user', name)
@@ -91,7 +91,7 @@ messageForm.addEventListener('submit', e => {
   if(!commands(message)){
      if(!checker(message)){
     appendMessage(`<div style="color:red;">The System Discconect you. NOT SPAM</div>`)
-    socket.emit("manual-disconnection", socket.id);
+    socket.emit("manual-disconnection", socket.id, message);
     
     socket.close();
     $('#message-input').val("");
@@ -118,7 +118,7 @@ messageForm.addEventListener('submit', e => {
   
   if(!checker(message)){
     appendMessage(`<div style="color:red;">The System Discconect you. NOT SPAM</div>`)
-    socket.emit("manual-disconnection", socket.id);
+    socket.emit("manual-disconnection",{ id: socket.id, message: message});
     
     socket.close();
     $('#message-input').val("");
@@ -177,4 +177,39 @@ function appendMessage(message) {
   messageContainer.append(messageElement)
 }
 
+$("#message-input").attr("autocomplete", "randomString"); 
+   $('#detailBoxSmall').click(function() {
+      $('.detailBox').toggle("slide");
+      $('.detailBoxSmall').toggle("slide");
+    });
+   $('#mini').click(function() {
+      $('.detailBox').toggle("slide");
+      $('.detailBoxSmall').toggle("slide");
+    });
+$( function() {
+  $('.detailBoxSmall').toggle("slide");
+  } );
 
+window.onload = addListeners();
+
+function addListeners(){
+    document.getElementById('titleBox').addEventListener('mousedown', mouseDown, false);
+    window.addEventListener('mouseup', mouseUp, false);
+
+}
+
+function mouseUp()
+{
+    window.removeEventListener('mousemove', divMove, true);
+}
+
+function mouseDown(e){
+  window.addEventListener('mousemove', divMove, true);
+}
+
+function divMove(e){
+    var div = document.getElementById('draggable_test');
+  div.style.position = 'absolute';
+  div.style.top = e.clientY-50 + 'px';
+  div.style.left = e.clientX-200 + 'px';
+}

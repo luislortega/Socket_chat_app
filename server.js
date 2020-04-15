@@ -5,9 +5,14 @@ var d = new Date();
 io.on('connection', socket => {
 
   socket.on('new-user', name => {
+    if (Object.values(users).indexOf(name) > -1) {
+    console.log('has '+name);
+  }else{
     users[socket.id] = name
     console.log("Users Online: "+Object.keys(users).length);
     socket.broadcast.emit('user-connected', name)
+  }
+   
   })
   //whisper
   socket.on("whisper", function(data) {
@@ -32,7 +37,7 @@ io.on('connection', socket => {
     
   })
 socket.on("manual-disconnection", function(data) {
-  const stringText = d.toLocaleString()+": User Manually Disconnected. trying to do SPAM:. NAME: "+users[data]+"\n";
+  const stringText = d.toLocaleString()+": User Manually Disconnected. trying to do SPAM:. NAME: "+users[data.id]+" Message: "+data.message+"\n";
   fs.appendFile("SPAM-users-disconnected.txt", stringText, function(error) {
     if(error) throw error; // Handle the error just in case
     else console.log("Spam detected check SPAM-users-disconnected.txt!");
