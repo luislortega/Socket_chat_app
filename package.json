@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "rate-limiter-flexible": "^2.1.4",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
