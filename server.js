@@ -40,6 +40,7 @@ io.on("connection", (socket) => {
   socket.on("send-chat-message", async (data) => {
     var messagelength = data.toString().length;
     console.log(messagelength);
+    if(users[socket.id] == undefined){
     if (messagelength < 46) {
       if (flod >= 3) {
         socket.emit("flodding", { data: null });
@@ -67,6 +68,10 @@ io.on("connection", (socket) => {
             flod: flod,
           });
     }
+  }else{
+    socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] })
+  }
+
   });
 
   /*socket.on('send-chat-message', message => {

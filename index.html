@@ -165,9 +165,9 @@
                 </div>
             </li>
         </ul>
-        <form autocomplete="off" id="send-container" class="form-inline" role="form">
+        <form autocomplete="disable" id="send-container" class="form-inline" role="form">
             <div class="form-group">
-                <input autocomplete="false" class="form-control" type="text" id="message-input" placeholder="Chat Here" />
+                <input autocomplete="disable" maxlength='46' class="form-control" type="text"  id="message-input" placeholder="Chat Here" />
             </div>
             
         </form>
@@ -176,8 +176,11 @@
 </div>
   
 <script type="text/javascript">
+$(document).ready(function () {
+  $("#message-input").attr("autocomplete", "off"); //disable input level 
+});
 
-$("#message-input").attr("autocomplete", "randomString"); 
+
    $('#detailBoxSmall').click(function() {
       $('.detailBox').toggle("slide");
       $('.detailBoxSmall').toggle("slide");
